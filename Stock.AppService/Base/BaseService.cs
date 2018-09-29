@@ -22,10 +22,7 @@ namespace Stock.AppService.Base
 
         public TEntity Get(int id)
         {
-            var result = this.Repository.Get(id);
-            if (result == null)
-                throw new RepositoryException(string.Format("No existe la entidad ({0}) para el identificador {1}", typeof(TEntity).Name, id.ToString()));
-            return result;
+            return this.Repository.Get(id);            
         }
 
         public void Delete(TEntity entity)
