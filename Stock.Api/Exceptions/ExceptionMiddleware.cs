@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Stock.Model.Exceptions;
 using Stock.Repository.Exceptions;
 using System;
 using System.Net;
@@ -24,6 +25,11 @@ namespace Stock.Api.Exceptions
             {
                 await next(httpContext);
             }
+            catch (ModelException ex)
+            {
+                logger.LogError($"Something went wrong: {ex}");
+                await HandleModelExceptionAsync(httpContext, ex);
+            }
             catch (RepositoryException ex)
             {
                 logger.LogError($"Something went wrong: {ex}");
@@ -34,6 +40,18 @@ namespace Stock.Api.Exceptions
                 logger.LogError($"Something went wrong: {ex}");
                 await HandleExceptionAsync(httpContext, ex);
             }
+        }
+
+        private static Task HandleModelExceptionAsync(HttpContext context, ModelException exception)
+        {
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+
+            return context.Response.WriteAsync(new ErrorDetails()
+            {
+                StatusCode = context.Response.StatusCode,
+                Message = exception.Message
+            }.ToString());
         }
 
         private static Task HandleRepositoryExceptionAsync(HttpContext context, RepositoryException exception)

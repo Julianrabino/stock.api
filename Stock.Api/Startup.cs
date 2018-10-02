@@ -11,6 +11,7 @@ using Stock.Api.Exceptions;
 using Stock.AppService.Services;
 using Stock.Repository.Contexts;
 using Stock.Repository.Repositories;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Stock.Api
 {
@@ -41,6 +42,12 @@ namespace Stock.Api
                 .UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddAutoMapper();
+
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Stock API", Version = "v1", Description = "Stock API v1" });
+            });
         }
 
         private void OnShutdown()
@@ -67,6 +74,18 @@ namespace Stock.Api
             }
 
             loggerFactory.AddConsole();
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Stock API V1");
+                c.RoutePrefix = "docs";
+            });
+
             applicationLifetime.ApplicationStopping.Register(OnShutdown);                        
             app.UseMvc();
         }

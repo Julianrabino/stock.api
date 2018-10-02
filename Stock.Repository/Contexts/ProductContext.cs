@@ -5,15 +5,22 @@ using System.Collections.Generic;
 
 namespace Stock.Repository.Contexts
 {
-    public class ProductContext: DbContext, IDbContext<Product>
+    public class ProductContext : DbContext, IDbContext<Product>
     {
         public ProductContext(DbContextOptions<ProductContext> options)
             : base(options)
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Product>()
+                .Property(b => b.Stock)
+                .HasField("_stock");
+        }
+
         public DbSet<Product> DbSet { get; set; }
-        
+
         public Product Add(Product entity)
         {
             this.Entry(entity.ProductType).State = EntityState.Unchanged;

@@ -63,5 +63,26 @@ namespace Stock.Api.Controllers
             var product = this.service.Get(id);
             this.service.Delete(product);
         }
+
+        // GET /product/stock/{id}
+        [HttpGet("stock/{idProducto}")]
+        public ActionResult<int> ObtenerStock(int idProducto)
+        {
+            return this.service.ObtenerStock(idProducto);
+        }
+
+        // GET /product/stock/descontar/{id}
+        [HttpPut("stock/descontar/{idProducto}")]
+        public void DescontarStock(int idProducto, [FromBody] int value)
+        {
+            this.service.DescontarStock(idProducto, value);
+        }
+
+        // GET /product/stock/sumar/{id}
+        [HttpPut("stock/sumar/{idProducto}")]
+        public void SumarStock(int idProducto, [FromBody] int value)
+        {
+            this.service.SumarStock(idProducto, value);
+        }
     }
 }
