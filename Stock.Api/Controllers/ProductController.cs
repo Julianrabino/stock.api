@@ -8,6 +8,7 @@ using System.Linq;
 
 namespace Stock.Api.Controllers
 {
+    [Produces("application/json")]
     [Route("api/product")]
     [ApiController]
     public class ProductController : ControllerBase
@@ -23,40 +24,59 @@ namespace Stock.Api.Controllers
             this.mapper = mapper;
         }
 
-        // GET /product
+        /// <summary>
+        /// Permite recuperar todas entidades
+        /// </summary>
+        /// <returns>Una colección de entidades</returns>
         [HttpGet]
         public ActionResult<IEnumerable<ProductDTO>> Get()
         {
             return this.mapper.Map<IEnumerable<ProductDTO>>(this.service.GetAll()).ToList();
         }
 
-        // GET /product/{id}
+        /// <summary>
+        /// Permite recuperar una entidad mediante un identificador
+        /// </summary>
+        /// <param name="id">Identificador de la entidad a recuperar</param>
+        /// <returns>Una entidad</returns>
         [HttpGet("{id}")]
         public ActionResult<ProductDTO> Get(int id)
         {
             return this.mapper.Map<ProductDTO>(this.service.Get(id));
         }
 
-        // POST
+        /// <summary>
+        /// Permite crear una nueva entidad
+        /// </summary>
+        /// <param name="value">Una entidad</param>
         [HttpPost]
         public void Post([FromBody] ProductDTO value)
         {
+            TryValidateModel(value);
             var product = this.mapper.Map<Product>(value);
-            product.ProductType = this.productTypeService.Get(value.ProductTypeId);
+            product.ProductType = this.productTypeService.Get(value.ProductTypeId.Value);
             this.service.Create(product);
         }
 
-        // PUT  /product/{id}
+        /// <summary>
+        /// Permite editar una entidad
+        /// </summary>
+        /// <param name="id">Identificador de la entidad a editar</param>
+        /// <param name="value">Una entidad con los nuevos datos</param>
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] ProductDTO value)
         {
             var product = this.service.Get(id);
+            TryValidateModel(value);
             this.mapper.Map<ProductDTO, Product>(value, product);
-            product.ProductType = this.productTypeService.Get(value.ProductTypeId);
+            product.ProductType = this.productTypeService.Get(value.ProductTypeId.Value);
             this.service.Update(product);
         }
 
-        // DELETE /product/{id}
+        /// <summary>
+        /// Permite borrar una entidad
+        /// </summary>
+        /// <param name="id">Identificador de la entidad a borrar</param>
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
@@ -64,25 +84,37 @@ namespace Stock.Api.Controllers
             this.service.Delete(product);
         }
 
-        // GET /product/stock/{id}
-        [HttpGet("stock/{idProducto}")]
-        public ActionResult<int> ObtenerStock(int idProducto)
+        /// <summary>
+        /// Permite conocer el stock de un producto
+        /// </summary>
+        /// <param name="id">Identificador del producto</param>
+        /// <returns>El stock disponible</returns>
+        [HttpGet("stock/{id}")]
+        public ActionResult<int> ObtenerStock(int id)
         {
-            return this.service.ObtenerStock(idProducto);
+            return this.service.ObtenerStock(id);
         }
 
-        // GET /product/stock/descontar/{id}
-        [HttpPut("stock/descontar/{idProducto}")]
-        public void DescontarStock(int idProducto, [FromBody] int value)
+        /// <summary>
+        /// Permite descontar una cantidad de stock a un producto
+        /// </summary>
+        /// <param name="id">Identificador del producto</param>
+        /// <param name="value">La cantidad a descontar</param>
+        [HttpPut("stock/descontar/{id}")]
+        public void DescontarStock(int id, [FromBody] int value)
         {
-            this.service.DescontarStock(idProducto, value);
+            this.service.DescontarStock(id, value);
         }
 
-        // GET /product/stock/sumar/{id}
-        [HttpPut("stock/sumar/{idProducto}")]
-        public void SumarStock(int idProducto, [FromBody] int value)
+        /// <summary>
+        /// Permite sumar una cantidad de stock a un productor
+        /// </summary>
+        /// <param name="id">Identificador del producto</param>
+        /// <param name="value">La cantidad a sumar</param>
+        [HttpPut("stock/sumar/{id}")]
+        public void SumarStock(int id, [FromBody] int value)
         {
-            this.service.SumarStock(idProducto, value);
+            this.service.SumarStock(id, value);
         }
     }
 }

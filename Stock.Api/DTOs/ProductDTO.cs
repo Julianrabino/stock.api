@@ -1,16 +1,22 @@
-﻿namespace Stock.Api.DTOs
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Stock.Api.DTOs
 {
     public class ProductDTO
     {
         public int Id { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
-        public decimal CostPrice { get; set; }
+        [Required]
+        public decimal? CostPrice { get; set; }
 
-        public decimal SalePrice { get; set; }
-        
-        public int ProductTypeId { get; set; }
+        [Required]
+        public decimal? SalePrice { get; set; }
+
+        [Required]
+        public int? ProductTypeId { get; set; }
 
         public string ProductTypeDesc { get; set; }
     }

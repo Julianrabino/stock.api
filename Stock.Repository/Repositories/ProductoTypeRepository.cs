@@ -9,8 +9,8 @@ namespace Stock.Repository.Repositories
     public class ProductTypeRepository: BaseRepository<ProductType>
     {
         public ProductTypeRepository(ProductTypeContext dbContext)
+            : base(dbContext)
         {
-            this.DbContext = dbContext;
         }
     }
 }
