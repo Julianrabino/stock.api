@@ -23,9 +23,9 @@ namespace Stock.Api.Controllers
         }
 
         /// <summary>
-        /// Permite recuperar todas entidades
+        /// Permite recuperar todas las instancias
         /// </summary>
-        /// <returns>Una colección de entidades</returns>
+        /// <returns>Una colección de instancias</returns>
         [HttpGet]
         public ActionResult<IEnumerable<ProductTypeDTO>> Get()
         {
@@ -33,10 +33,10 @@ namespace Stock.Api.Controllers
         }
 
         /// <summary>
-        /// Permite recuperar una entidad mediante un identificador
+        /// Permite recuperar una instancia mediante un identificador
         /// </summary>
-        /// <param name="id">Identificador de la entidad a recuperar</param>
-        /// <returns>Una entidad</returns>
+        /// <param name="id">Identificador de la instancia a recuperar</param>
+        /// <returns>Una instancia</returns>
         [HttpGet("{id}")]
         public ActionResult<ProductTypeDTO> Get(int id)
         {
@@ -44,9 +44,9 @@ namespace Stock.Api.Controllers
         }
 
         /// <summary>
-        /// Permite crear una nueva entidad
+        /// Permite crear una nueva instancia
         /// </summary>
-        /// <param name="value">Una entidad</param>
+        /// <param name="value">Una instancia</param>
         [HttpPost]
         public void Post([FromBody] ProductTypeDTO value)
         {
@@ -55,10 +55,10 @@ namespace Stock.Api.Controllers
         }
 
         /// <summary>
-        /// Permite editar una entidad
+        /// Permite editar una instancia
         /// </summary>
-        /// <param name="id">Identificador de la entidad a editar</param>
-        /// <param name="value">Una entidad con los nuevos datos</param>
+        /// <param name="id">Identificador de la instancia a editar</param>
+        /// <param name="value">Una instancia con los nuevos datos</param>
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] ProductTypeDTO value)
         {
@@ -69,9 +69,9 @@ namespace Stock.Api.Controllers
         }
 
         /// <summary>
-        /// Permite borrar una entidad
+        /// Permite borrar una instancia
         /// </summary>
-        /// <param name="id">Identificador de la entidad a borrar</param>
+        /// <param name="id">Identificador de la instancia a borrar</param>
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
