@@ -107,7 +107,7 @@ namespace Stock.Api.Controllers
         }
 
         /// <summary>
-        /// Permite sumar una cantidad de stock a un productor
+        /// Permite sumar una cantidad de stock a un producto
         /// </summary>
         /// <param name="id">Identificador del producto</param>
         /// <param name="value">La cantidad a sumar</param>
