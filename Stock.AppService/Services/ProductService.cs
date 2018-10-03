@@ -8,8 +8,8 @@ namespace Stock.AppService.Services
     public class ProductService: BaseService<Product>
     {                
         public ProductService(ProductRepository repository)
+            : base(repository)
         {
-            this.Repository = repository;
         }
 
         public int ObtenerStock(int idProducto)

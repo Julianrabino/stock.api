@@ -45,7 +45,7 @@ namespace Stock.Api.Exceptions
         private static Task HandleModelExceptionAsync(HttpContext context, ModelException exception)
         {
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            context.Response.StatusCode = (int)HttpStatusCode.NotAcceptable;
 
             return context.Response.WriteAsync(new ErrorDetails()
             {
@@ -57,7 +57,7 @@ namespace Stock.Api.Exceptions
         private static Task HandleRepositoryExceptionAsync(HttpContext context, RepositoryException exception)
         {
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+            context.Response.StatusCode = (int)HttpStatusCode.NotAcceptable;
 
             return context.Response.WriteAsync(new ErrorDetails()
             {

@@ -12,6 +12,9 @@ using Stock.AppService.Services;
 using Stock.Repository.Contexts;
 using Stock.Repository.Repositories;
 using Swashbuckle.AspNetCore.Swagger;
+using System;
+using System.IO;
+using System.Reflection;
 
 namespace Stock.Api
 {
@@ -47,6 +50,11 @@ namespace Stock.Api
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "Stock API", Version = "v1", Description = "Stock API v1" });
+
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
         }
 

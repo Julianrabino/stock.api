@@ -9,6 +9,11 @@ namespace Stock.Repository.Base
     {
         protected IDbContext<TEntity> DbContext { get; set; }
 
+        public BaseRepository(IDbContext<TEntity> dbContext)
+        {
+            this.DbContext = dbContext;
+        }
+
         public TEntity Add(TEntity entity)
         {
             var result = this.DbContext.Add(entity);

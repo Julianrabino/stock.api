@@ -7,8 +7,8 @@ namespace Stock.Repository.Repositories
     public class ProductRepository: BaseRepository<Product>
     {
         public ProductRepository(ProductContext dbContext)
+            : base(dbContext)
         {
-            this.DbContext = dbContext;
         }
     }
 }
