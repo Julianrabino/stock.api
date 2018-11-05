@@ -116,5 +116,16 @@ namespace Stock.Api.Controllers
         {
             this.service.SumarStock(id, value);
         }
+
+        /// <summary>
+        /// Permite obtener el precio de venta al público de un producto
+        /// </summary>
+        /// <param name="id">Identificador del producto</param>
+        /// <returns>El precio de venta al público</returns>
+        [HttpGet("precioVenta/{id}")]
+        public ActionResult<decimal> ObtenerPrecioVenta(int id)
+        {
+            return this.service.ObtenerPrecioVentaPublico(id);
+        }
     }
 }

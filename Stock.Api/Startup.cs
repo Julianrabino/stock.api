@@ -11,6 +11,7 @@ using Stock.Api.Exceptions;
 using Stock.AppService.Services;
 using Stock.Repository.Contexts;
 using Stock.Repository.Repositories;
+using Stock.Settings;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.IO;
@@ -31,6 +32,7 @@ namespace Stock.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.Configure<DomainSettings>(Configuration.GetSection("DomainSettings"));
             services.AddTransient<ProductService>();
             services.AddTransient<ProductTypeService>();
             services.AddTransient<ProductRepository>();
