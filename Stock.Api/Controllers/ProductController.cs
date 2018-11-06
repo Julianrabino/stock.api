@@ -90,9 +90,9 @@ namespace Stock.Api.Controllers
         /// <param name="id">Identificador del producto</param>
         /// <returns>El stock disponible</returns>
         [HttpGet("stock/{id}")]
-        public ActionResult<int> ObtenerStock(int id)
+        public ActionResult<GenericResultDTO<int>> ObtenerStock(int id)
         {
-            return this.service.ObtenerStock(id);
+            return new GenericResultDTO<int>(this.service.ObtenerStock(id));
         }
 
         /// <summary>
@@ -123,9 +123,9 @@ namespace Stock.Api.Controllers
         /// <param name="id">Identificador del producto</param>
         /// <returns>El precio de venta al público</returns>
         [HttpGet("precioVenta/{id}")]
-        public ActionResult<decimal> ObtenerPrecioVenta(int id)
+        public ActionResult<GenericResultDTO<decimal>> ObtenerPrecioVenta(int id)
         {
-            return this.service.ObtenerPrecioVentaPublico(id);
+            return new GenericResultDTO<decimal>(this.service.ObtenerPrecioVentaPublico(id));
         }
     }
 }
