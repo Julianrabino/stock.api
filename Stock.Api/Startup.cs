@@ -83,6 +83,8 @@ namespace Stock.Api
                 //app.UseExceptionHandler();
             }
 
+            //app.UseCors(b => b.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());
+
             loggerFactory.AddConsole();
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.

@@ -57,5 +57,11 @@ namespace Stock.AppService.Services
 
             return producto.SalePrice;
         }
+
+        public decimal ObtenerPrecioVentaEmpleado(int idProducto)
+        {
+            var producto = this.Repository.Get(idProducto);
+            return producto.CostPrice;
+        }
     }
 }

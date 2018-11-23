@@ -127,5 +127,16 @@ namespace Stock.Api.Controllers
         {
             return new GenericResultDTO<decimal>(this.service.ObtenerPrecioVentaPublico(id));
         }
+
+        /// <summary>
+        /// Permite obtener el precio de venta de un producto para un empleado
+        /// </summary>
+        /// <param name="id">Identificador del producto</param>
+        /// <returns>El precio de venta para un empleado</returns>
+        [HttpGet("precioVentaEmpleado/{id}")]
+        public ActionResult<GenericResultDTO<decimal>> ObtenerPrecioVentaEmpleado(int id)
+        {
+            return new GenericResultDTO<decimal>(this.service.ObtenerPrecioVentaEmpleado(id));
+        }
     }
 }
